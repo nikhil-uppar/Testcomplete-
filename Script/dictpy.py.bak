@@ -1,0 +1,13 @@
+﻿def mydict():
+  dict = {"p1":100 , "p2":20, "p3":33}
+  Log.Message(dict.get("p1"))
+  dict["p4"]=20
+  Log.Message(dict["p4"])
+  if "p5" in dict:
+    Log.Message("p5 is in the dict")
+  else:
+    Log.Message("p5is not")
+    
+  
+  
+  

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root signature="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" version="11.40">
+	<children>
+		<child name="Unit1" key="{346672C9-538E-4B00-90E9-E3AB56DAD2E9}" path="Unit1.py" />
+		<child name="pyintro" key="{BCCD1C0B-A26E-499E-AD94-7D66671C32C4}" path="pyintro.py" />
+		<child name="listpy" key="{4BC9CAF2-D95D-48D2-8ADF-34C6C3945481}" path="listpy.py" />
+		<child name="dictpy" key="{798CFA95-73EE-4102-B2C4-0F2D09D51504}" path="dictpy.py" />
+		<child name="classes" key="{2DD6ADF4-65E7-4BF6-B32E-3F868444D7BB}" path="classes.py" />
+	</children>
+</Root>
