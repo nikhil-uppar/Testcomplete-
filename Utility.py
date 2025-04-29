@@ -1,51 +1,51 @@
-﻿#Author : Nikhil Uppar
-#Description : Launching the engineering client
-#Parameters : None
-def launch_engg_client():
-  TestedApps.EngineeringClient.Run()
+﻿#Name:Nikhil Uppar
+#Description: Launching the Schneider server
+#Parameters: None
+def Launch_server():
+  TestedApps.SystemServer.Run()
+  test_boundary_data("SE_Moolyaas_Test","P@ssw0rd1234")
+  open_console()
+  start_server()
   
-#########################################################################################################################################
-#Author : Nikhil Uppar
-#Description : Topology and Project explorer view
-#Parameters : None
-def topology_exp():
- select_system = Sys.Process("EngineeringClient").WPFObject("HwndSource: Main").WPFObject("Main").WPFObject("Grid", "", 2).WPFObject("Grid", "", 1).WPFObject("WorkspaceControl").WPFObject("FrameHostContainer", "", 1).WPFObject("FrameHostControl", "", 1).WPFObject("UserControl", "", 1).WPFObject("ContentControl", "", 1).WPFObject("SystemsExplorer", "", 1).WPFObject("Grid", "", 1).WPFObject("SystemsTree").WPFObject("CoreGraph", "", 1).WPFObject("ExplorerNode", "", 4)
- select_system.Click()
- clk_topology = Sys.Process("EngineeringClient").WPFObject("HwndSource: Main").WPFObject("Main").WPFObject("MainBarGrid").WPFObject("Grid", "", 2).WPFObject("PartContent").WPFObject("PartMainBar").WPFObject("StackPanel", "", 1).WPFObject("MainToolBar").WPFObject("ContentPresenter", "", 5).WPFObject("PartContainer").WPFObject("PartButton")
- clk_topology.Click()
- sv_project_browser = Sys.Process("EngineeringClient").WPFObject("HwndSource: Main").WPFObject("Main").WPFObject("Grid", "", 2).WPFObject("Grid", "", 1).WPFObject("WorkspaceControl").WPFObject("FrameHostContainer", "", 1).WPFObject("FrameHostControl", "", 1).WPFObject("UserControl", "", 1).WPFObject("ContentControl", "", 1).WPFObject("ProjectExplorer", "", 1).WPFObject("Grid", "", 1).WPFObject("radDocking").WPFObject("RadSplitContainer", "", 1).WPFObject("ProjectBrowserPaneGroup").WPFObject("Grid", "", 1).WPFObject("BaseTreeListView", "", 1)
- cntlr_one = Sys.Process("EngineeringClient").WPFObject("HwndSource: Main").WPFObject("Main").WPFObject("Grid", "", 2).WPFObject("Grid", "", 1).WPFObject("WorkspaceControl").WPFObject("FrameHostContainer", "", 1).WPFObject("FrameHostControl", "", 1).WPFObject("UserControl", "", 1).WPFObject("ContentControl", "", 1).WPFObject("ProjectExplorer", "", 1).WPFObject("Grid", "", 1).WPFObject("radDocking").WPFObject("RadSplitContainer", "", 1).WPFObject("ProjectBrowserPaneGroup").WPFObject("Grid", "", 1).WPFObject("Tree").WPFObject("TreeListViewRow", "", 2).WPFObject("GridViewCell", "", 1)
- cntrl_prjt = Sys.Process("EngineeringClient").WPFObject("HwndSource: Main").WPFObject("Main").WPFObject("Grid", "", 2).WPFObject("Grid", "", 1).WPFObject("WorkspaceControl").WPFObject("FrameHostContainer", "", 1).WPFObject("FrameHostControl", "", 1).WPFObject("UserControl", "", 1).WPFObject("ContentControl", "", 1).WPFObject("ProjectExplorer", "", 1).WPFObject("Grid", "", 1).WPFObject("radDocking").WPFObject("RadSplitContainer", "", 1).WPFObject("ProjectBrowserPaneGroup").WPFObject("UnityProjectTreePane").WPFObject("Grid", "", 1).WPFObject("TextBlock", "Control Project", 1)
- if sv_project_browser.Exists:
-  cntrl_prjt.Click()
-  aqUtils.Delay(500)
-  cntlr_one.ClickR()
- else:
-  cntlr_one.ClickR()
+#Name:Nikhil Uppar
+#Description: Login page 
+#Parameters: Username ,Password and login button
+def test_boundary_data(user, pwd):
+  username = Sys.Process("SystemServer").WPFObject("HwndSource: LogOnDialog", "").WPFObject("LogOnDialog", "", 1).WPFObject("Grid", "", 1).WPFObject("Grid", "", 1).WPFObject("UserName")
+  aqUtils.Delay(3000)
+  password = Sys.Process("SystemServer").WPFObject("HwndSource: LogOnDialog", "").WPFObject("LogOnDialog", "", 1).WPFObject("Grid", "", 1).WPFObject("Grid", "", 1).WPFObject("PasswordBox")
+  Login_btn = Sys.Process("SystemServer").WPFObject("HwndSource: LogOnDialog", "").WPFObject("LogOnDialog", "", 1).WPFObject("Grid", "", 1).WPFObject("Grid", "", 1).WPFObject("StackPanel", "", 1).WPFObject("Button", "Log In", 1)
+  username.SetText(user)
+  password.SetText(pwd)
+  Login_btn.Click()
   
-  
-############################################################################################################################################  
-#Author : Nikhil Uppar
-#Description : Topology and Project explorer view
-#Parameters : menu items and buttons
-def Menu(num):
-  menu_items = Sys.Process("EngineeringClient").WPFObject("HwndSource: PopupRoot", "").WPFObject("PopupRoot", "", 1).WPFObject("Decorator", "", 1).WPFObject("NonLogicalAdornerDecorator", "", 1).WPFObject("ContextMenu", "", 1)
-  menu_items.Click()
-  items = menu_items.FindAllChildren("ClrClassName","ContextMenu",16)
-  for item in items:
-    if item.WPFControlOrdinalNo == num:
-      item.Click()
-      Log.Message(f"{item.WPFControlOrdinalNo} is clicked")
-    else:
-      Log.Warning("Button not clicked")
-  p_2_p_conn = Sys.Process("EngineeringClient").WPFObject("HwndSource: ModalDialogWindow", "").WPFObject("ModalDialogWindow", "", 1).WPFObject("ManagePeerToPeer", "", 1).WPFObject("Grid", "", 1).WPFObject("Grid", "", 1).WPFObject("BtnOk")
-  p_2_p_conn.Click()
-  
-############################################################################################################################################  
-#Author : Nikhil Uppar
-#Description : Topology and Project explorer view
-#Parameters : menu items and buttons  
-def try_mtd():
-  topology_exp()
-  Menu("9")
-  
+  Warning_message = Sys.Process("SystemServer").WPFObject("HwndSource: LogOnDialog", "").WPFObject("LogOnDialog", "", 1).WPFObject("Grid", "", 1).WPFObject("Grid", "", 3).WPFObject("TextBlock", "Wrong username or password or the user is disabled in the Security Editor on the system server computer", 1)
+  if Warning_message.Exists:
+    aqUtils.Delay(3000)
+    Log.Error(Warning_message.WPFControlText)
+  else:
+    Log.Message("Success")
+
+#Name:Nikhil Uppar
+#Description: Hidden apps tray
+#Parameters: none    
+def open_console():
+  abc = Sys.Process("explorer").Window("Shell_TrayWnd", "", 1)
+  abc.ClickR(1569+75, 35)
+  Sys.Keys("[Tab]")
+  Sys.Keys("[Enter]")
+
+#Name:Nikhil Uppar
+#Description: Start Server
+#Parameters: None
+def start_server():
+  action_menu = Sys.Process("SystemServer").WPFObject("HwndSource: MainWindow", "EcoStruxure Process Expert - System Server").WPFObject("MainWindow", "EcoStruxure Process Expert - System Server", 1).WPFObject("Grid", "", 1).WPFObject("MainMenu").WPFObject("ActionMenu").Click()
+  start_btn = Sys.Process("SystemServer").WPFObject("HwndSource: PopupRoot", "").WPFObject("PopupRoot", "", 1).WPFObject("Decorator", "", 1).WPFObject("NonLogicalAdornerDecorator", "", 1).WPFObject("MenuItem", "Start", 1)
+  start_btn.Click()
+  server_console = Sys.Process("SystemServer").WPFObject("HwndSource: MainWindow", "EcoStruxure Process Expert - System Server").WPFObject("MainWindow", "EcoStruxure Process Expert - System Server", 1).WPFObject("Grid", "", 1).WPFObject("Terminal").WPFObject("Grid", "", 1).WPFObject("OutputWindow").WPFObject("Grid", "", 1).WPFObject("Console").wText
+  if server_console.Exists:
+    Log.Message("Server started")
+    if wText("Server is ready").Exists:
+      Log.Message("Server is ready")
+  else:
+    Log.Message("Server is not ready")
